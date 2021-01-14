@@ -6,26 +6,20 @@ You may assume that the number passed in is an integer greater than 1.
 function multisum(num) {
   let bucket = [];
   
-  for (let i = 0; i < num; i++) {
+  for (let i = 1; i <= num; i++) {
     bucket.push(i);
   }
 
   console.log(bucket);
 
-  let mult3 = bucket.filter(i => i % 3 === 0);
+  let mult3 = bucket.filter(i => (i % 3 === 0) || (i % 5 === 0));
   console.log(mult3);
 
-  let mult5 = bucket.filter(i => i % 5 === 0);
-  console.log(mult5);
-  
-  let multiples = mult3.concat(mult5);
 
-  console.log(multiples);
-
-  // mult3.reduce(function(acc, cv) {
-  //   // return acc + cv;
-  //   console.log(acc + cv);
-  // })
+  mult3.reduce(function(acc, cv) {
+    console.log(acc + cv);
+    return acc + cv;
+  })
 }
 
 multisum(20);       // 98
