@@ -8,7 +8,7 @@ function invalidNumber(number) {
   return number.trimStart() === '' || Number.isNaN(Number(number));
 }
 
-function userInput() {
+while(true) {
   prompt("Welcome to Calculator!");
 
   prompt("What's the first number?");
@@ -52,18 +52,10 @@ function userInput() {
   }
 
   prompt(`The result is: ${output}`);
-  
-  prompt(`Would you like to perform another calculation? 'Yes' or 'No'`);
+
+  prompt(`Would you like to perform another calculation? 'yes' or 'no'`);
   let evaluate = readline.question();
 
-  switch(evaluate) {
-    case 'Yes':
-      userInput();
-      break;
-    case 'No':
-      break;
-  }
+  if (evaluate.toLowerCase !== 'yes') break;
 
 }
-
-userInput();
