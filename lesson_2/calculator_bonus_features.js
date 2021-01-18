@@ -1,4 +1,7 @@
+const MESSAGES = require('./calculator_messages.json');
 const readline = require('readline-sync');
+
+const LANGUAGE = "en";
 
 function prompt(message) {
   console.log(`=> ${message}`);
@@ -8,8 +11,12 @@ function invalidNumber(number) {
   return number.trimStart() === '' || Number.isNaN(Number(number));
 }
 
+function messages(message, lang = "en") {
+  return MESSAGES[lang][message];
+}
+
 while(true) {
-  prompt("Welcome to Calculator!");
+  prompt(messages("welcome", LANGUAGE));
 
   prompt("What's the first number?");
   let number1 = readline.question();
