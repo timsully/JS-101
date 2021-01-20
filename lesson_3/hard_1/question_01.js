@@ -15,4 +15,4 @@ function second() {
 console.log(first());
 console.log(second());
 
-// function first() will return the object, but second() will just return and not evaluate the object on the line below it.
+// function first() will return the object, but second() will returns undefined and does not evaluate the object on the line below it. So they do not return the same thing.
