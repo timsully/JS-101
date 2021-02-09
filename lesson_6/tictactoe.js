@@ -65,6 +65,20 @@ function joinOr(arr, joinOn = ", ", delimiter = "or") {
   );
 }
 
+function findAtRiskSquare(line, board, marker) {
+  let markersInLine = line.map((square) => board[square]);
+
+  if (markersInLine.filter((val) => val === marker).length === 2) {
+    let unusedSquare = line.find((square) => board[square] === INITIAL_MARKER);
+    if (unusedSquare !== undefined) {
+      return unusedSquare;
+    }
+  }
+
+  return null;
+}
+
+
 function playerChoosesSquare(board) {
   let square;
 
@@ -80,9 +94,33 @@ function playerChoosesSquare(board) {
 }
 
 function computerChoosesSquare(board) {
-  let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
+  let square;
 
-  let square = emptySquares(board)[randomIndex];
+  // offense
+  if (!square) {
+    for (let index = 0; index < WINNING_LINES.length; index++) {
+      let line = WINNING_LINES[index];
+      square = findAtRiskSquare(line, board, COMPUTER_MARKER);
+      if (square) break;
+    }
+  }
+
+  // defense first
+  for (let index = 0; index < WINNING_LINES.length; index++) {
+    let line = WINNING_LINES[index];
+    square = findAtRiskSquare(line, board, HUMAN_MARKER);
+    if (square) break;
+  }
+
+  // pick square #5 if available
+
+
+  // picks a random square
+  if (!square) {
+    let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
+    square = emptySquares(board)[randomIndex];
+  }
+
   board[square] = COMPUTER_MARKER;
 }
 
@@ -91,11 +129,10 @@ function boardFull(board) {
 }
 
 function detectWinner(board) {
-  
 
   for (let line = 0; line < WINNING_LINES.length; line++) {
     let [ sq1, sq2, sq3 ] = WINNING_LINES[line];
-    
+
     if (
         board[sq1] === HUMAN_MARKER &&
         board[sq2] === HUMAN_MARKER &&
@@ -142,7 +179,7 @@ while (true) {
   }
 
   prompt("Play again? (y or n)");
-  let answer = readline.question().toLowerCase()[0];
+  let answer = readline.question();
   if (answer !== "y") break;
 }
 
