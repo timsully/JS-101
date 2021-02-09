@@ -9,11 +9,9 @@ function asciiValue(string) {
 
   if (string === '') return 0;
 
-  // push charCode's of each character into bucket
   let charCodeArr = arr.map(i => i.charCodeAt());
-
-  // add together charcode values
   let totalCharCodeSum = charCodeArr.reduce((acc, cv) => acc + cv);
+
   return totalCharCodeSum;
 }
 
