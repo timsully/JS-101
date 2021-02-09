@@ -4,6 +4,12 @@ const INITIAL_MARKER = " ";
 const HUMAN_MARKER = "X";
 const COMPUTER_MARKER = "O";
 
+const WINNING_LINES = [
+  [1, 2, 3], [4, 5, 6], [7, 8, 9], // rows
+  [1, 4, 7], [2, 5, 8], [3, 6, 9], // columns
+  [1, 5, 9], [3, 5, 7]             // diagonals
+];
+
 function prompt(msg) {
   console.log(`=> ${msg}`);
 }
@@ -42,11 +48,28 @@ function emptySquares(board) {
   return Object.keys(board).filter(key => board[key] === INITIAL_MARKER);
 }
 
+function joinOr(arr, joinOn = ", ", delimiter = "or") {
+  if (arr.length === 0) {
+    return "";
+  }
+  if (arr.length === 1) {
+    return "" + arr[0];
+  }
+  return (
+    arr
+      .slice(0, arr.length - 1)
+      .map((num) => String(num))
+      .join(joinOn) +
+    `${joinOn}${delimiter} ` +
+    arr[arr.length - 1]
+  );
+}
+
 function playerChoosesSquare(board) {
   let square;
 
   while (true) {
-    prompt(`Choose a square (${emptySquares(board).join(', ')}):`);
+    prompt(`Choose a square: ${joinOr(emptySquares(board))}`);
     square = readline.question().trim();
     if (emptySquares(board).includes(square)) break;
 
@@ -68,14 +91,10 @@ function boardFull(board) {
 }
 
 function detectWinner(board) {
-  let winningLines = [
-    [1, 2, 3], [4, 5, 6], [7, 8, 9],
-    [1, 4, 7], [2, 5, 8], [3, 6, 9],
-    [1, 5, 9], [3, 5, 7]
-  ];
+  
 
-  for (let line = 0; line < winningLines.length; line++) {
-    let [ sq1, sq2, sq3 ] = winningLines[line];
+  for (let line = 0; line < WINNING_LINES.length; line++) {
+    let [ sq1, sq2, sq3 ] = WINNING_LINES[line];
     
     if (
         board[sq1] === HUMAN_MARKER &&
