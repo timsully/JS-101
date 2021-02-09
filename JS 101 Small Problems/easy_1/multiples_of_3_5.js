@@ -3,27 +3,25 @@ Write a function that computes the sum of all numbers between 1 and some other n
 
 You may assume that the number passed in is an integer greater than 1.
 */
-function multisum(num) {
-  let bucket = [];
-  
-  for (let i = 1; i <= num; i++) {
-    bucket.push(i);
-  }
 
-  console.log(bucket);
-
-  let mult3 = bucket.filter(i => (i % 3 === 0) || (i % 5 === 0));
-  console.log(mult3);
-
-
-  mult3.reduce(function(acc, cv) {
-    console.log(acc + cv);
-    return acc + cv;
-  })
+function isMultiple(number, divisor) {
+  return number % divisor === 0;
 }
 
-multisum(20);       // 98
-// multisum(3);       // 3
-// multisum(5);       // 8
-// multisum(10);      // 33
-// multisum(1000);    // 234168
+function multisum(maxValue) {
+  let sum = 0;
+
+  for (let number = 1; number <= maxValue; number += 1) {
+    if (isMultiple(number, 3) || isMultiple(number, 5)) {
+      sum += number;
+    }
+  }
+
+  return sum;
+}
+
+console.log(multisum(20));       // 98
+console.log(multisum(3));       // 3
+console.log(multisum(5));       // 8
+console.log(multisum(10));      // 33
+console.log(multisum(1000));    // 234168
