@@ -27,9 +27,12 @@ function keepScore() {
 
   if (humanWins === TOTAL_WINS) {
     prompt(`Human wins the overall match!`);
-  } else if (computerWins === TOTAL_WINS) {
+  } 
+  if (computerWins === TOTAL_WINS) {
     prompt(`Computer wins the overall match!`);
   }
+
+  keepScore();  
 }
 
 keepScore();
