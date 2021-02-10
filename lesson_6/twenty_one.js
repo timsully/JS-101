@@ -66,17 +66,13 @@ const DECK = [
   "KH",
 ];
 
-let currentCardIndex = 0;
-let suits = ["S", "D", "C", "H"];
-let values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K"];
-let current_deck = [];
+let currentDeck = [];
 let player = [];
 let dealer = [];
 
 // deep clone and then call shuffle function (reset deck)
 function resetDeck() {
-  current_deck = shuffle([...DECK]);
-  currentCardIndex = 0;
+  currentDeck = shuffle([...DECK]);
 }
 
 function valueOfCard(str) {
@@ -126,7 +122,7 @@ function checkForWinner() {
   // determine winner
   if (busted()) {
     console.log(`You busted, that's a loss.`);
-    return false;
+    return;
   }
 
   if (score(dealer) > score(player)) {
@@ -139,10 +135,10 @@ function checkForWinner() {
 }
 
 function dealCards() {
-  dealer.push(current_deck.pop());
-  dealer.push(current_deck.pop());
-  player.push(current_deck.pop());
-  player.push(current_deck.pop());
+  dealer.push(currentDeck.pop());
+  dealer.push(currentDeck.pop());
+  player.push(currentDeck.pop());
+  player.push(currentDeck.pop());
 
   // after two cards have been dealt
   while (true) {
@@ -150,11 +146,11 @@ function dealCards() {
     console.log(`Dealer Has: ${dealer}`);
     console.log(`You have: ${player}`);
     let answer = readline.question();
-    
+
     if (answer === "stay" || busted()) {
       break;
     } else {
-      player.push(current_deck.pop());
+      player.push(currentDeck.pop());
       if (busted()) {
         console.log(`You busted, that's a loss.`);
         break;
