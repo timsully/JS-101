@@ -8,7 +8,7 @@ let rlSync = require("readline-sync");
 const squareMeter = 10.7639;
 
 console.log("Enter the length of the room in meters:");
-let length = rlSync.prompty();
+let length = rlSync.prompt();
 length = parseInt(length, 10);
 
 console.log("Enter the width of the room in meters:");
