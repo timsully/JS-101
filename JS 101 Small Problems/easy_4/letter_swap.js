@@ -36,8 +36,6 @@ console.log(swap("Oh what a wonderful day it is"));  // "hO thaw a londerfuw yad
 console.log(swap("Abcde"));                          // "ebcdA"
 console.log(swap("a"));                              // "a"
 
-
-
 /*
 Input: a string Output: a string with each words first and last letters reversed
 Rules:
